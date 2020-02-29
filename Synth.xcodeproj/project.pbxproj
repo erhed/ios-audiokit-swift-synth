@@ -15,6 +15,8 @@
 		03336E0F240A57DE00B40648 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03336E0D240A57DE00B40648 /* LaunchScreen.storyboard */; };
 		03336E18240A59D800B40648 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03336E16240A59D300B40648 /* AudioKit.framework */; };
 		03336E19240A59D800B40648 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03336E16240A59D300B40648 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		03336E1C240A5B0300B40648 /* SynthEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03336E1B240A5B0300B40648 /* SynthEngine.swift */; };
+		03336E1E240AD17100B40648 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03336E1D240AD17100B40648 /* KeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +43,8 @@
 		03336E0E240A57DE00B40648 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03336E10240A57DF00B40648 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03336E16240A59D300B40648 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		03336E1B240A5B0300B40648 /* SynthEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthEngine.swift; sourceTree = "<group>"; };
+		03336E1D240AD17100B40648 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,8 @@
 				03336E0B240A57DE00B40648 /* Assets.xcassets */,
 				03336E0D240A57DE00B40648 /* LaunchScreen.storyboard */,
 				03336E10240A57DF00B40648 /* Info.plist */,
+				03336E1B240A5B0300B40648 /* SynthEngine.swift */,
+				03336E1D240AD17100B40648 /* KeyboardView.swift */,
 			);
 			path = Synth;
 			sourceTree = "<group>";
@@ -158,8 +164,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03336E1C240A5B0300B40648 /* SynthEngine.swift in Sources */,
 				03336E07240A57DD00B40648 /* ViewController.swift in Sources */,
 				03336E03240A57DD00B40648 /* AppDelegate.swift in Sources */,
+				03336E1E240AD17100B40648 /* KeyboardView.swift in Sources */,
 				03336E05240A57DD00B40648 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
