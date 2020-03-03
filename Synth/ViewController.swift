@@ -1,21 +1,24 @@
-//
-//  ViewController.swift
-//  Synth
-//
-//  Created by Erik on 2020-02-29.
-//  Copyright © 2020 se.maj7. All rights reserved.
-//
-
 import UIKit
 import AudioKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var keyboardView: KeyboardView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        keyboardView.delegate = self
+    }
+}
+
+extension ViewController: KeyboardDelegate {
+    func noteOn(note: MIDINoteNumber) {
+        print("note on: \(note)")
     }
 
-
+    func noteOff(note: MIDINoteNumber) {
+        print("note off: \(note)")
+    }
 }
 
