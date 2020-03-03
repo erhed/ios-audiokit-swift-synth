@@ -1,19 +1,31 @@
 import AudioKit
 import UIKit
 
+@objc public protocol KeyboardDelegate: AnyObject {
+    func noteOn(note: MIDINoteNumber)
+    func noteOff(note: MIDINoteNumber)
+}
+
 @IBDesignable class KeyboardView: UIView {
+
+    @IBInspectable var primaryKeyColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    @IBInspectable var accentKeyColor = UIColor(red: 0.8, green: 1.0, blue: 1.0, alpha: 1.0)
+    @IBInspectable var pressedKeyColor = UIColor(red: 0.8, green: 0.8, blue: 1.0, alpha: 1.0)
 
     let keySpacing: CGFloat = 0.5
     let keyNotes = [0, 2, 4, 5, 7, 9, 11]
+    let keyRows = 4
     var baseMIDINote = 48
-    var notesPressed = [(index: Int, row: Int)]()
+    var notesPressed = Set<MIDINoteNumber>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        isMultipleTouchEnabled = true
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        isMultipleTouchEnabled = true
     }
 
     override func draw(_ rect: CGRect) {
@@ -24,7 +36,7 @@ import UIKit
         UIColor.black.setFill()
         backgroundPath.fill()
 
-        for index in 0..<4 {
+        for index in 0..<keyRows {
             drawRowOfKeys(row: index)
         }
     }
@@ -57,16 +69,13 @@ import UIKit
     }
 
     func keyColor(_ index: Int, _ row: Int) -> UIColor {
-        for pressedKey in notesPressed {
-            if pressedKey.index == index && pressedKey.row == row {
-                return UIColor.yellow
-            }
+        if notesPressed.contains(MIDINoteNumber(baseMIDINote + (3 - row) * 12 + keyNotes[index])) {
+            return pressedKeyColor
         }
-
         if index == 0 || index == 2 || index == 4 {
-            return UIColor.red
+            return accentKeyColor
         } else {
-            return UIColor.blue
+            return primaryKeyColor
         }
     }
 
@@ -87,43 +96,85 @@ import UIKit
 
         let keyWidth = (frame.size.width - keySpacing * 6) / 7
         let keyHeight = (frame.size.height - keySpacing * 3) / 4
-
         let xPosition = location.x
         let yPosition = location.y
 
         let noteIndex = Int(floor(xPosition / keyWidth))
-        let octaveIndex = Int(floor(yPosition / keyHeight))
+        if noteIndex > 6 {
+            return nil
+        }
 
-        notesPressed.append((noteIndex, octaveIndex))
+        let octaveIndex = Int(floor(yPosition / keyHeight))
 
         let octave = 3 - octaveIndex
         let note = keyNotes[noteIndex]
 
         let noteNumber = baseMIDINote + (octave * 12) + note
 
-        print(noteNumber)
-
         return MIDINoteNumber(noteNumber)
+    }
 
+    func addPressedNote(_ note: MIDINoteNumber) {
+        if !notesPressed.contains(note) {
+            notesPressed.insert(note)
+            print("note ON: \(note.description)")
+        }
+    }
+
+    func removePressedNote(_ note: MIDINoteNumber, touches: Set<UITouch>? = nil) {
+        guard notesPressed.contains(note) else { return }
+        notesPressed.remove(note)
+        print("note OFF: \(note.description)")
+    }
+
+    func updatePressedNotes(_ touches: Set<UITouch>?) {
+        let notes = getNotesFromTouches(touches ?? Set<UITouch>())
+        let disjunct = notesPressed.subtracting(notes)
+        if disjunct.isNotEmpty {
+            for note in disjunct {
+                removePressedNote(note)
+            }
+        }
     }
 }
 
 extension KeyboardView {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = getNotesFromTouches(touches)
-        for touch in touches {
-            print(touch.location(in: self))
+        for note in notes {
+            addPressedNote(note)
         }
+        updatePressedNotes(event?.allTouches)
         setNeedsDisplay()
     }
 
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let notes = getNotesFromTouches(touches)
-        setNeedsDisplay()
+        for touch in touches {
+            if let note = getNoteFromTouchLocation(touch.location(in: self)),
+                note != getNoteFromTouchLocation(touch.previousLocation(in: self)) {
+                addPressedNote(note)
+                setNeedsDisplay()
+            }
+        }
+        updatePressedNotes(event?.allTouches)
+    }
+
+    override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+        updatePressedNotes(event?.allTouches)
     }
 
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        notesPressed.removeAll()
+        for touch in touches {
+            if let note = getNoteFromTouchLocation(touch.location(in: self)) {
+                if var otherTouches = event?.allTouches {
+                    otherTouches.remove(touch)
+                    if !getNotesFromTouches(otherTouches).contains(note) {
+                        removePressedNote(note, touches: event?.allTouches)
+                    }
+                }
+            }
+        }
+        updatePressedNotes(event?.allTouches)
         setNeedsDisplay()
     }
 }
