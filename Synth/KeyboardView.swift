@@ -17,6 +17,7 @@ import UIKit
     let keyRows = 4
     var baseMIDINote = 48
     var notesPressed = Set<MIDINoteNumber>()
+    var delegate: KeyboardDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,10 +106,8 @@ import UIKit
         }
 
         let octaveIndex = Int(floor(yPosition / keyHeight))
-
         let octave = 3 - octaveIndex
         let note = keyNotes[noteIndex]
-
         let noteNumber = baseMIDINote + (octave * 12) + note
 
         return MIDINoteNumber(noteNumber)
@@ -117,14 +116,14 @@ import UIKit
     func addPressedNote(_ note: MIDINoteNumber) {
         if !notesPressed.contains(note) {
             notesPressed.insert(note)
-            print("note ON: \(note.description)")
+            delegate?.noteOn(note: note)
         }
     }
 
     func removePressedNote(_ note: MIDINoteNumber, touches: Set<UITouch>? = nil) {
         guard notesPressed.contains(note) else { return }
         notesPressed.remove(note)
-        print("note OFF: \(note.description)")
+        delegate?.noteOff(note: note)
     }
 
     func updatePressedNotes(_ touches: Set<UITouch>?) {
