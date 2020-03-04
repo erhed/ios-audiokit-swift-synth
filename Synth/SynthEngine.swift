@@ -16,7 +16,9 @@ final class SynthEngine {
 
         //let envelope = AKAmplitudeEnvelope(oscillator, attackDuration: 0.01, decayDuration: 0.1, sustainLevel: 1.0, releaseDuration: 0.1)
 
-        AudioKit.output = oscillator
+        let reverb = AKCostelloReverb(oscillator, feedback: 0.95, cutoffFrequency: 20000)
+
+        AudioKit.output = reverb
 
         do {
             try AudioKit.start()
