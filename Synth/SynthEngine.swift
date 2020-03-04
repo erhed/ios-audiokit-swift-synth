@@ -3,20 +3,20 @@ import AudioKit
 
 final class SynthEngine {
 
-    var oscillator: AKOscillator!
+    var oscillator: AKOscillatorBank!
+    var velocity: MIDIVelocity!
 
     init() {
 
+        velocity = MIDIVelocity(100)
+
         let sawWave = AKTable(.sawtooth)
 
-        oscillator = AKOscillator(waveform: sawWave)
-        oscillator.frequency = 100.0
-        oscillator.rampDuration = 2.0
-        oscillator.amplitude = 0.5
+        oscillator = AKOscillatorBank(waveform: sawWave, attackDuration: 0.1, decayDuration: 2.0, sustainLevel: 0.3, releaseDuration: 0.5)
 
-        let envelope = AKAmplitudeEnvelope(oscillator, attackDuration: 0.01, decayDuration: 0.1, sustainLevel: 1.0, releaseDuration: 0.1)
+        //let envelope = AKAmplitudeEnvelope(oscillator, attackDuration: 0.01, decayDuration: 0.1, sustainLevel: 1.0, releaseDuration: 0.1)
 
-        AudioKit.output = envelope
+        AudioKit.output = oscillator
 
         do {
             try AudioKit.start()
@@ -25,7 +25,11 @@ final class SynthEngine {
         }
     }
 
-    func play() {
-        oscillator.play()
+    func noteOn(note: MIDINoteNumber) {
+        oscillator.play(noteNumber: note, velocity: velocity)
+    }
+
+    func noteOff(note: MIDINoteNumber) {
+        oscillator.stop(noteNumber: note)
     }
 }

@@ -15,13 +15,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J2B-1Z-MTt" customClass="KeyboardView" customModule="Synth" customModuleProvider="target">
-                                <rect key="frame" x="225" y="74" width="528" height="264"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2B-1Z-MTt" customClass="KeyboardView" customModule="Synth" customModuleProvider="target">
+                                <rect key="frame" x="184.5" y="8" width="659.5" height="377"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J2B-1Z-MTt" secondAttribute="height" multiplier="7:4" id="n6n-wh-ofL"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="J2B-1Z-MTt" secondAttribute="bottom" constant="8" id="4If-Os-PeB"/>
+                            <constraint firstItem="J2B-1Z-MTt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="LqN-0R-zwI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="J2B-1Z-MTt" secondAttribute="trailing" constant="8" id="UTN-bR-y3f"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
