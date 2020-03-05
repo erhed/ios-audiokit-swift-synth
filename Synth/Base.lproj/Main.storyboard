@@ -16,18 +16,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2B-1Z-MTt" customClass="KeyboardView" customModule="Synth" customModuleProvider="target">
-                                <rect key="frame" x="184.5" y="8" width="659.5" height="377"/>
+                                <rect key="frame" x="289.5" y="50" width="512.5" height="293"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="J2B-1Z-MTt" secondAttribute="height" multiplier="7:4" id="n6n-wh-ofL"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="primaryKeyColor">
+                                        <color key="value" red="0.1061490549" green="0.14748842070000001" blue="0.34718634850000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="accentKeyColor">
+                                        <color key="value" red="0.1061490549" green="0.14748842070000001" blue="0.34718634850000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="pressedKeyColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="keyboardBackgroundColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.10614905487552442" green="0.14748842072320026" blue="0.34718634846246788" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="J2B-1Z-MTt" secondAttribute="bottom" constant="8" id="4If-Os-PeB"/>
-                            <constraint firstItem="J2B-1Z-MTt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="LqN-0R-zwI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="J2B-1Z-MTt" secondAttribute="trailing" constant="8" id="UTN-bR-y3f"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="J2B-1Z-MTt" secondAttribute="bottom" constant="50" id="4If-Os-PeB"/>
+                            <constraint firstItem="J2B-1Z-MTt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="LqN-0R-zwI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="J2B-1Z-MTt" secondAttribute="trailing" constant="50" id="UTN-bR-y3f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

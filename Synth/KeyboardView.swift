@@ -8,11 +8,12 @@ import UIKit
 
 @IBDesignable class KeyboardView: UIView {
 
-    @IBInspectable var primaryKeyColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-    @IBInspectable var accentKeyColor = UIColor(red: 0.8, green: 1.0, blue: 1.0, alpha: 1.0)
-    @IBInspectable var pressedKeyColor = UIColor(red: 0.8, green: 0.8, blue: 1.0, alpha: 1.0)
+    @IBInspectable open var primaryKeyColor: UIColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+    @IBInspectable open var accentKeyColor: UIColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+    @IBInspectable open var pressedKeyColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    @IBInspectable open var keyboardBackgroundColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
-    let keySpacing: CGFloat = 0.5
+    let keySpacing: CGFloat = 2
     let keyNotes = [0, 2, 4, 5, 7, 9, 11]
     let keyRows = 4
     var baseMIDINote = 48
@@ -34,7 +35,7 @@ import UIKit
                                                        y: 0,
                                                        width: self.frame.width,
                                                        height: self.frame.height))
-        UIColor.black.setFill()
+        keyboardBackgroundColor.setFill()
         backgroundPath.fill()
 
         for index in 0..<keyRows {
@@ -73,7 +74,7 @@ import UIKit
         if notesPressed.contains(MIDINoteNumber(baseMIDINote + (3 - row) * 12 + keyNotes[index])) {
             return pressedKeyColor
         }
-        if index == 0 || index == 2 || index == 4 {
+        if index == 0 || index == 3 || index == 4 {
             return accentKeyColor
         } else {
             return primaryKeyColor
